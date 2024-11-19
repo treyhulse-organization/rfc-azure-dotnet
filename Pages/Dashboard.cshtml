@@ -1,0 +1,35 @@
+﻿@page
+@model DashboardModel
+<h1>Dashboard</h1>
+<canvas id="taskStatusChart" width="400" height="200"></canvas>
+<canvas id="priorityChart" width="400" height="200"></canvas>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    const taskStatusCtx = document.getElementById('taskStatusChart').getContext('2d');
+    const priorityCtx = document.getElementById('priorityChart').getContext('2d');
+
+    // Task Status Chart
+    new Chart(taskStatusCtx, {
+        type: 'pie',
+        data: {
+            labels: ['Pending', 'In Progress', 'Completed'],
+            datasets: [{
+                data: @Html.Raw(Model.TaskStatusCounts),
+                backgroundColor: ['#ff6384', '#36a2eb', '#4bc0c0']
+            }]
+        }
+    });
+
+    // Priority Chart
+    new Chart(priorityCtx, {
+        type: 'bar',
+        data: {
+            labels: ['High', 'Medium', 'Low'],
+            datasets: [{
+                label: 'Tasks by Priority',
+                data: @Html.Raw(Model.PriorityCounts),
+                backgroundColor: ['#ff6384', '#36a2eb', '#4bc0c0']
+            }]
+        }
+    });
+</script>

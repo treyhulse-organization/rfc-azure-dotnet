@@ -14,7 +14,7 @@ namespace TaskManagerUI.Services
             _context = context;
         }
 
-        public List<TaskItem> GetTasks(string filter = null, string sort = null)
+        public List<TaskItem> GetTasks(string? filter = null, string? sort = null)
         {
             var query = _context.Tasks.AsQueryable();
 

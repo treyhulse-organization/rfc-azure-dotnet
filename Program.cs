@@ -7,11 +7,15 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 
-// Register the database context with SQLite
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+// Use SQLite for local development, and Azure SQL Database for production.
+var connectionString = builder.Environment.IsDevelopment()
+    ? builder.Configuration.GetConnectionString("DefaultConnection")
+    : builder.Configuration.GetConnectionString("AzureConnection");
 
-// Add TaskService for dependency injection
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(connectionString)); // UseSqlite for local or UseSqlServer for Azure.
+
+// Add TaskService for dependency injection.
 builder.Services.AddScoped<TaskService>();
 
 var app = builder.Build();
