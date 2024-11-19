@@ -1,14 +1,28 @@
 ﻿@page
 @model DashboardModel
-<h1>Dashboard</h1>
-<canvas id="taskStatusChart" width="400" height="200"></canvas>
-<canvas id="priorityChart" width="400" height="200"></canvas>
+<div class="bg-white shadow-md rounded-lg p-6">
+    <h1 class="text-2xl font-bold text-gray-700 mb-6">Dashboard</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Task Status Chart -->
+        <div class="bg-gray-50 shadow-lg rounded-lg p-6">
+            <h2 class="text-xl font-semibold mb-4">Task Status</h2>
+            <canvas id="taskStatusChart"></canvas>
+        </div>
+
+        <!-- Task Priority Chart -->
+        <div class="bg-gray-50 shadow-lg rounded-lg p-6">
+            <h2 class="text-xl font-semibold mb-4">Task Priority</h2>
+            <canvas id="priorityChart"></canvas>
+        </div>
+    </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     const taskStatusCtx = document.getElementById('taskStatusChart').getContext('2d');
     const priorityCtx = document.getElementById('priorityChart').getContext('2d');
 
-    // Task Status Chart
     new Chart(taskStatusCtx, {
         type: 'pie',
         data: {
@@ -20,13 +34,12 @@
         }
     });
 
-    // Priority Chart
     new Chart(priorityCtx, {
         type: 'bar',
         data: {
             labels: ['High', 'Medium', 'Low'],
             datasets: [{
-                label: 'Tasks by Priority',
+                label: 'Task Priority',
                 data: @Html.Raw(Model.PriorityCounts),
                 backgroundColor: ['#ff6384', '#36a2eb', '#4bc0c0']
             }]

@@ -4,23 +4,36 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Task Manager</title>
-    <link rel="stylesheet" href="/css/site.css" />
+    <link href="/css/site.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/tailwind.css" />
 </head>
-<body>
-    <header>
-        <h1>Task Manager</h1>
-        <nav>
-            <a href="/Tasks">Tasks</a>
-            <a href="/Dashboard">Dashboard</a>
-        </nav>
-        <button id="theme-toggle">Toggle Dark Mode</button>
-    </header>
-    <main role="main" class="container">
+<body class="bg-gray-100 text-gray-800">
+    <!-- Navbar -->
+    <nav class="bg-primary text-white p-4 shadow-lg">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-3xl font-bold">
+                <a href="/" class="hover:underline">Task Manager</a>
+            </h1>
+            <div class="space-x-6">
+                <a href="/Tasks" class="text-lg hover:underline">Tasks</a>
+                <a href="/Dashboard" class="text-lg hover:underline">Dashboard</a>
+                <button id="theme-toggle" class="px-4 py-2 bg-secondary text-white rounded shadow">
+                    Toggle Dark Mode
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto p-8">
         @RenderBody()
     </main>
-    <footer>
-        <p>&copy; 2024 - Task Manager</p>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-center text-white p-4 mt-10">
+        <p>&copy; 2024 Task Manager. All rights reserved.</p>
     </footer>
+
     <script>
         const toggleButton = document.getElementById('theme-toggle');
         toggleButton.addEventListener('click', () => {
@@ -30,7 +43,6 @@
             localStorage.setItem('theme', newTheme);
         });
 
-        // Load the saved theme on page load.
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
     </script>
